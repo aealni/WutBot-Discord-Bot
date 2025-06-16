@@ -106,13 +106,6 @@ async def stuff(message):
         b = random.randint(1,len(emojis) - 1)
         await message.add_reaction(emojis[b])
 
-        
-    if (message.channel.id == 855121980737716274):
-      if (not message.author.id == 834186967125196810):
-        msg = message.content
-        await message.delete()
-        await message.channel.send(msg)
-
               
 
 
@@ -127,10 +120,10 @@ async def tranqcount(ctx):
     
     
 @client.command()
+@commands.has_permissions(administrator=True)
 async def tranqreset(ctx):
-      if (ctx.message.author.id==384736698594230273):
-          db['count']=0
-          await ctx.channel.send("Oops I forgot how many tranqs there were. Let's restart!")
+    db['count']=0
+    await ctx.channel.send("Oops I forgot how many tranqs there were. Let's restart!")
 
 
 
@@ -152,9 +145,9 @@ async def take(ctx, a:int):
 
 @client.command()
 async def wutwalletreset(ctx):
-      if (ctx.message.author.id==384736698594230273):
-          db['wutwallet']=1000
-          await ctx.channel.send("I just got a cash injection <:nicodab:838233787535851550>")
+@commands.has_permissions(administrator=True)
+    db['wutwallet']=1000
+    await ctx.channel.send("I just got a cash injection <:nicodab:838233787535851550>")
 
 @client.command()
 async def wutwallet(ctx):
@@ -652,13 +645,11 @@ async def wutevent(ctx):
 
 @client.command()
 @commands.cooldown(1, 15, commands.BucketType.guild)
+@commands.has_permissions(administrator=True)
 async def wutupdateevent(ctx):
-  if ctx.author.id == 182621022543937537 or ctx.author.id == 384736698594230273:  
     a = str(ctx.message.content)
     db['eve']=a[14:]
     await ctx.channel.send('Updated !!')
-  else:
-    await ctx.channel.send('i see no glue around here <:unigun:748027048114651186>')
         
 
 @client.command()
